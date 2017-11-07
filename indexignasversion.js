@@ -11,7 +11,8 @@
 const PADDLE_WIDTH = 100;
 const PADDLE_HEIGHT = 20;
 const PADDLE_SPEED = 5;
-
+const BALL_SPEED = 2;
+const BALL_RADIUS = 30;
 // setTimeout() invokes a callback function after a certain period.
 //
 // requestAnimationFrame allows the browser to perform optimizations on
@@ -51,8 +52,22 @@ class Paddle {
   }
 }
 
-//TODO: Create a ball class with a constructor and render method
 
+class Ball {
+constructor (x, y)
+{
+  this.x = x
+  this.y = y
+  this.radius = BALL_RADIUS
+  this.speed = BALL_SPEED
+}
+render(){
+    context.beginPath()
+    context.fillstyle = "#FF1493"
+    context.arc(this.x, this.y, this.radius, 0, 2*Math.PI)
+    context.fill()
+  }
+}
 
 // This function will be called when the page finishes loading.
 window.onload = () => {
@@ -73,7 +88,13 @@ var step = () => {
 // This is where we will tell the ball to keep moving and check
 // if it has collided with a paddle
 var update = () => {
-  // Nada
+
+  //comment added by ignas: we will make a boundary type thing for the paddles
+  //and check if the x and y of the ball are within them, thats a hit, rebound
+  //if the ball hits the top or bottom thats a point gained by opposing
+  //if hits side needs to rebound
+
+
 }
 // An example player
 var playerOne = new Paddle(100,0)
