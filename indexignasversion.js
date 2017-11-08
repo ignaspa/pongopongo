@@ -57,13 +57,33 @@ class Ball {
 constructor (x, y)
 {
   this.x = x
+
+  this.xdir = Math.random()
+  if( this.xdir >= 0.5){
+    this.xdir = -1
+  }
+  else{
+    this.xdir = 1
+  }
   this.y = y
+  this.ydir = Math.random()
+  if( this.ydir >= 0.5){
+    this.ydir = -1
+  }
+  else{
+    this.ydir = 1
+  }
   this.radius = BALL_RADIUS
   this.speed = BALL_SPEED
 }
+update(){
+
+
+
+}
 render(){
-    this.x = this.x + 5
-    this.y = this.y + 6
+    this.x = this.x + (this.xdir*this.speed)
+    this.y = this.y + (this.ydir*this.speed)
     context.beginPath()
     context.fillstyle = "#FF1493"
     context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI)
