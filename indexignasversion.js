@@ -62,9 +62,11 @@ constructor (x, y)
   this.speed = BALL_SPEED
 }
 render(){
+    this.x = this.x + 5
+    this.y = this.y + 6
     context.beginPath()
     context.fillstyle = "#FF1493"
-    context.arc(this.x, this.y, this.radius, 0, 2*Math.PI)
+    context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI)
     context.fill()
   }
 }
@@ -98,11 +100,12 @@ var update = () => {
 }
 // An example player
 var playerOne = new Paddle(100,0)
-
+var ballOne = new Ball(0, 0)
 // Everytime we call update we have to redraw everthing. We could optimize this
 // but its not gonna be a problem for us.
 var render = () => {
   context.fillStyle = "#000000" // This is a hex colour value (white)
   context.fillRect(0,0, width, height)
   playerOne.render();
+  ballOne.render();
 }
