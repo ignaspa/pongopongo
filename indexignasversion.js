@@ -50,8 +50,19 @@ class Paddle {
     context.fillStyle = "#FFFFFF"
     context.fillRect(this.x, this.y, this.width, this.height)
   }
-}
 
+
+ update(left, right){
+   if (left){
+     this.x = this.x - this.speed
+   }
+   if (right){
+     this.x = this.x + this.speed
+   }
+
+
+ }
+}
 
 class Ball {
 constructor (x, y)
@@ -127,23 +138,43 @@ var step = () => {
 // This is where we will tell the ball to keep moving and check
 // if it has collided with a paddle
 var update = () => {
+  left = false
+  right = false
+  window.addEventListener("keydown", function(event) {
+    if (event.keyCode == 65){
+      left = true
+    }
+    if (event.keyCode == 68){
+      right = true
+    }
+  });
+  window.addEventListener("keyup", function(event) {
+    if (event.keyCode == 65){
+      left = false
+    }
+    if (event.keyCode == 68){
+      right = false
+    }
+  });
+  playerOne.update(left, right)
   ballOne.update()
+
   //comment added by ignas: we will make a boundary type thing for the paddles
   //and check if the x and y of the ball are within them, thats a hit, rebound
   //if the ball hits the top or bottom thats a point gained by opposing
   //if hits side needs to rebound
-
-
 }
+
+
 // An example player
 var playerOne = new Paddle(100,0)
-var ballOne = new Ball(2*BALL_RADIUS, 2*BALL_RADIUS)
+var ballOne = new Ball(0.5 * canvas.width, 0.5 * canvas.height)
 // Everytime we call update we have to redraw everthing. We could optimize this
 // but its not gonna be a problem for us.
 var render = () => {
   context.fillStyle = "#000000" // This is a hex colour value (white)
   context.fillRect(0,0, width, height)
   playerOne.render();
-  context.fillStyle = "#FF1493"
+  context.fillStyle = "#FF1493" // ball color value
   ballOne.render();
 }
