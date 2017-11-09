@@ -140,19 +140,19 @@ var step = () => {
 var update = () => {
   left = false
   right = false
-  window.addEventListener("keydown", function(event) {
-    if (event.keyCode == 65){
+  var down = window.addEventListener("keydown", function(event) {
+    if (down.keyCode == 65){
       left = true
     }
-    if (event.keyCode == 68){
+    if (down.keyCode == 68){
       right = true
     }
   });
-  window.addEventListener("keyup", function(event) {
-    if (event.keyCode == 65){
+  var up = window.addEventListener("keyup", function(event) {
+    if (up.keyCode == 65){
       left = false
     }
-    if (event.keyCode == 68){
+    if (up.keyCode == 68){
       right = false
     }
   });
