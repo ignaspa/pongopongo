@@ -11,7 +11,7 @@
 const PADDLE_WIDTH = 100;
 const PADDLE_HEIGHT = 20;
 const PADDLE_SPEED = 5;
-const BALL_SPEED = 4;
+const BALL_SPEED = 6;
 const BALL_RADIUS = 30;
 var topL = false;
 var topR = false;
@@ -31,10 +31,10 @@ var animate = window.requestAnimationFrame ||
 var canvas = document.createElement('canvas')
 //var width = document.getElementById("root").clientWidth
 //var height = document.getElementById("root").clientHeight
-canvas.width = 500
-canvas.height = 500
-var width = 500
-var height = 500
+canvas.width = 800
+canvas.height = 650
+var width = 800
+var height = 650
 // This will esentially tell the canvas that we want a 2d plane
 var context = canvas.getContext('2d')
 
@@ -115,8 +115,18 @@ update(){
    this.ydir = -this.ydir
  }
 
-//if (playerOne.x + PADDLE_HEIGHT <= this.y && playerOne.x >= )
- //this.ydir = this.ydir * -1
+if(this.y + BALL_RADIUS >= height - PADDLE_HEIGHT){
+  if(this.x >= playerTwo.x && this.x <= playerTwo.x + PADDLE_WIDTH){
+    this.ydir = this.ydir * -1
+  }
+}
+
+if(this.y - BALL_RADIUS <= 0 + PADDLE_HEIGHT){
+  if(this.x >= playerOne.x && this.x <= playerOne.x + PADDLE_WIDTH){
+    this.ydir = this.ydir * -1
+  }
+}
+
 }
 
 
@@ -208,6 +218,6 @@ var render = () => {
   context.fillRect(0,0, width, height)
   playerOne.render();
   playerTwo.render();
-  context.fillStyle = "#FF1493" // ball color value
+  context.fillStyle = "#FF69B4" // ball color value
   ballOne.render();
 }
