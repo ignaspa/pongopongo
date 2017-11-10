@@ -13,6 +13,8 @@ const PADDLE_HEIGHT = 20;
 const PADDLE_SPEED = 5;
 const BALL_SPEED = 4;
 const BALL_RADIUS = 30;
+var topL = false;
+var topR = false;
 // setTimeout() invokes a callback function after a certain period.
 //
 // requestAnimationFrame allows the browser to perform optimizations on
@@ -52,11 +54,11 @@ class Paddle {
   }
 
 
- update(left, right){
-   if (left){
+ update(){
+   if (topR){
      this.x = this.x - this.speed
    }
-   if (right){
+   if (topL){
      this.x = this.x + this.speed
    }
 
@@ -135,28 +137,27 @@ var step = () => {
   animate(step)
 }
 
+window.addEventListener("keydown", function(event){
+ if (event.keyCode == 65){
+   topR = true
+ }
+ if (event.keyCode == 68){
+   topR = true
+ }
+});
+window.addEventListener("keyup", function(event){
+ if (event.keyCode == 65){
+   topR = false
+ }
+ if (event.keyCode == 68){
+   topR = false
+ }
+});
 // This is where we will tell the ball to keep moving and check
 // if it has collided with a paddle
 var update = () => {
-  left = false
-  right = false
-  var down = window.addEventListener("keydown", function(event) {
-    if (down.keyCode == 65){
-      left = true
-    }
-    if (down.keyCode == 68){
-      right = true
-    }
-  });
-  var up = window.addEventListener("keyup", function(event) {
-    if (up.keyCode == 65){
-      left = false
-    }
-    if (up.keyCode == 68){
-      right = false
-    }
-  });
-  playerOne.update(left, right)
+
+  playerOne.update()
   ballOne.update()
 
   //comment added by ignas: we will make a boundary type thing for the paddles
