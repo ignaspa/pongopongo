@@ -15,6 +15,9 @@ const BALL_SPEED = 4;
 const BALL_RADIUS = 30;
 var topL = false;
 var topR = false;
+var botL = false;
+var botR = false;
+var keys = {"topR":false, "topL":false, "botR":false, "botL":false}
 // setTimeout() invokes a callback function after a certain period.
 //
 // requestAnimationFrame allows the browser to perform optimizations on
@@ -42,12 +45,14 @@ var context = canvas.getContext('2d')
 // This is a class definition in the latest JS (ES6?). You might
 // find examples that look quite different from ES5 etc.
 class Paddle {
-  constructor(x, y){
+  constructor(x, y, leftK, rightK){
     this.x = x
     this.y = y
     this.height = PADDLE_HEIGHT
     this.width = PADDLE_WIDTH
     this.speed = PADDLE_SPEED
+    this.leftK = leftK
+    this.rightK = rightK
   }
   // This the method we will call each time we render() in out step() loop
   render() {
@@ -57,10 +62,10 @@ class Paddle {
 
 
  update(){
-   if (topR){
+   if (keys[this.leftK] && this.x > 0){
      this.x = this.x - this.speed
    }
-   if (topL){
+   if (keys[this.rightK] && this.x + PADDLE_WIDTH < width){
      this.x = this.x + this.speed
    }
 
@@ -109,7 +114,12 @@ update(){
  if (this.y - this.radius <= 0){
    this.ydir = -this.ydir
  }
+
+//if (playerOne.x + PADDLE_HEIGHT <= this.y && playerOne.x >= )
+ //this.ydir = this.ydir * -1
 }
+
+
 render(){
 
     this.x = this.x + (this.xdir * this.speed)
@@ -141,18 +151,35 @@ var step = () => {
 
 window.addEventListener("keydown", function(event){
  if (event.keyCode == 65){
-   topR = true
+   keys["topL"] = true
  }
  if (event.keyCode == 68){
-   topR = true
+   keys["topR"] = true
  }
 });
 window.addEventListener("keyup", function(event){
  if (event.keyCode == 65){
-   topL = false
+   keys["topL"] = false
  }
  if (event.keyCode == 68){
-   topL = false
+   keys["topR"] = false
+ }
+});
+
+window.addEventListener("keydown", function(event){
+ if (event.keyCode == 37){
+   keys["botL"] = true
+ }
+ if (event.keyCode == 39){
+   keys["botR"] = true
+ }
+});
+window.addEventListener("keyup", function(event){
+ if (event.keyCode == 37){
+   keys["botL"] = false
+ }
+ if (event.keyCode == 39){
+   keys["botR"] = false
  }
 });
 // This is where we will tell the ball to keep moving and check
@@ -160,6 +187,7 @@ window.addEventListener("keyup", function(event){
 var update = () => {
 
   playerOne.update()
+  playerTwo.update()
   ballOne.update()
 
   //comment added by ignas: we will make a boundary type thing for the paddles
@@ -170,7 +198,8 @@ var update = () => {
 
 
 // An example player
-var playerOne = new Paddle(100,0)
+var playerOne = new Paddle(PADDLE_HEIGHT,0, "topL", "topR")
+var playerTwo = new Paddle(100, height - PADDLE_HEIGHT, "botL", "botR")
 var ballOne = new Ball(0.5 * canvas.width, 0.5 * canvas.height)
 // Everytime we call update we have to redraw everthing. We could optimize this
 // but its not gonna be a problem for us.
@@ -178,6 +207,7 @@ var render = () => {
   context.fillStyle = "#000000" // This is a hex colour value (white)
   context.fillRect(0,0, width, height)
   playerOne.render();
+  playerTwo.render();
   context.fillStyle = "#FF1493" // ball color value
   ballOne.render();
 }
