@@ -26,10 +26,12 @@ var animate = window.requestAnimationFrame ||
 
 // This is the canvas on which we will paint our masterpiece
 var canvas = document.createElement('canvas')
-var width = window.innerWidth
-var height = window.innerHeight
-canvas.width = width
-canvas.height = height
+//var width = document.getElementById("root").clientWidth
+//var height = document.getElementById("root").clientHeight
+canvas.width = 500
+canvas.height = 500
+var width = 500
+var height = 500
 // This will esentially tell the canvas that we want a 2d plane
 var context = canvas.getContext('2d')
 
@@ -147,10 +149,10 @@ window.addEventListener("keydown", function(event){
 });
 window.addEventListener("keyup", function(event){
  if (event.keyCode == 65){
-   topR = false
+   topL = false
  }
  if (event.keyCode == 68){
-   topR = false
+   topL = false
  }
 });
 // This is where we will tell the ball to keep moving and check
