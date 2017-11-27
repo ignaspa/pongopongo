@@ -56,7 +56,7 @@ class Paddle {
   }
   // This the method we will call each time we render() in out step() loop
   render() {
-    context.fillStyle = "#FFFFFF"
+    context.fillStyle = "#90EE90"
     context.fillRect(this.x, this.y, this.width, this.height)
   }
 
@@ -118,12 +118,14 @@ update(){
 if(this.y + BALL_RADIUS >= height - PADDLE_HEIGHT){
   if(this.x >= playerTwo.x && this.x <= playerTwo.x + PADDLE_WIDTH){
     this.ydir = this.ydir * -1
+  
   }
 }
 
 if(this.y - BALL_RADIUS <= 0 + PADDLE_HEIGHT){
   if(this.x >= playerOne.x && this.x <= playerOne.x + PADDLE_WIDTH){
     this.ydir = this.ydir * -1
+
   }
 }
 
@@ -195,10 +197,10 @@ window.addEventListener("keyup", function(event){
 // This is where we will tell the ball to keep moving and check
 // if it has collided with a paddle
 var update = () => {
-
+  ballOne.update()
   playerOne.update()
   playerTwo.update()
-  ballOne.update()
+
 
   //comment added by ignas: we will make a boundary type thing for the paddles
   //and check if the x and y of the ball are within them, thats a hit, rebound
