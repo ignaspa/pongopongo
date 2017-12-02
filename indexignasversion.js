@@ -59,7 +59,7 @@ class Paddle {
   }
   // This the method we will call each time we render() in out step() loop
   render() {
-    context.fillStyle = "#90EE90"
+    context.fillStyle = "#40E0D0"
     context.fillRect(this.x, this.y, this.width, this.height)
   }
 
@@ -219,8 +219,8 @@ var update = () => {
 
 // An example player
 
-var playerOne = new Paddle(PADDLE_HEIGHT,0, "topL", "topR")
-var playerTwo = new Paddle(100, height - PADDLE_HEIGHT, "botL", "botR")
+var playerOne = new Paddle(canvas.width/2 - PADDLE_WIDTH/2,0, "topL", "topR")
+var playerTwo = new Paddle(canvas.width/2- PADDLE_WIDTH/2, height - PADDLE_HEIGHT, "botL", "botR")
 var ballOne = new Ball(0.5 * canvas.width, 0.5 * canvas.height)
 // Everytime we call update we have to redraw everthing. We could optimize this
 // but its not gonna be a problem for us.
@@ -231,7 +231,13 @@ var render = () => {
     context.font = "30px Times New Roman";
     context.fillStyle = "white";
     context.textAlign = "center"
-    context.fillText("pRESS Z TO BEGIn", 0.5 * canvas.width, 0.5 * canvas.height);
+    context.fillText(".press Z to begin.", 0.5 * canvas.width, 0.5 * canvas.height);
+    context.beginPath();
+    context.lineWidth="2";
+    context.strokeStyle="#FF1493";
+    context.rect(0.5 * canvas.width - 160, 0.5 * canvas.height - 31,325,50);
+    context.stroke()
+
   }
 
   playerOne.render();
