@@ -10,7 +10,7 @@
 // Some constants we will use later
 const PADDLE_WIDTH = 100;
 const PADDLE_HEIGHT = 20;
-const PADDLE_SPEED = 5;
+const PADDLE_SPEED = 10;
 const BALL_SPEED = 6;
 const BALL_RADIUS = 30;
 
@@ -19,8 +19,11 @@ var topL = false;
 var topR = false;
 var botL = false;
 var botR = false;
+var paddlecolor = "#34ddff"
 var keys = {"topR":false, "topL":false, "botR":false, "botL":false}
 var startgame = true;
+var gameover = false;
+var fault = 0
 // setTimeout() invokes a callback function after a certain period.
 //
 // requestAnimationFrame allows the browser to perform optimizations on
@@ -59,7 +62,7 @@ class Paddle {
   }
   // This the method we will call each time we render() in out step() loop
   render() {
-    context.fillStyle = "#40E0D0"
+    context.fillStyle = paddlecolor
     context.fillRect(this.x, this.y, this.width, this.height)
   }
 
@@ -112,24 +115,32 @@ update(){
    this.xdir = -this.xdir
  }
  if (this.y + this.radius >= canvas.height){
-   this.ydir = -this.ydir
+   gameover = true
+   fault = 2
  }
  if (this.x - this.radius <= 0){
    this.xdir = -this.xdir
  }
  if (this.y - this.radius <= 0){
-   this.ydir = -this.ydir
+   fault = 1
+   gameover = true
  }
 
 if(this.y + BALL_RADIUS >= height - PADDLE_HEIGHT){
+
   if(this.x >= playerTwo.x && this.x <= playerTwo.x + PADDLE_WIDTH){
+
     this.ydir = this.ydir * -1
+
   }
 }
 
 if(this.y - BALL_RADIUS <= 0 + PADDLE_HEIGHT){
+
   if(this.x >= playerOne.x && this.x <= playerOne.x + PADDLE_WIDTH){
+
     this.ydir = this.ydir * -1
+
   }
 }
 
@@ -160,9 +171,12 @@ window.onload = () => {
 // This is a callback function. animate() will call this once it has done its
 // thing.
 var step = () => {
+
   update()
   render()
+  if (gameover == false){
   animate(step)
+}
 
 }
 
@@ -228,22 +242,45 @@ var render = () => {
   context.fillStyle = "#000000" // This is a hex colour value (white)
   context.fillRect(0,0, width, height)
   if (startgame == true){
-    context.font = "30px Times New Roman";
+    context.font = "30px Tahoma";
     context.fillStyle = "white";
     context.textAlign = "center"
-    context.fillText(".press Z to begin.", 0.5 * canvas.width, 0.5 * canvas.height);
+    context.fillText("press Z to begin", 0.5 * canvas.width, 0.5 * canvas.height);
+    context.font = "22px Tahoma";
+    context.fillStyle = "#66d966";
+
+    context.fillText("i g n a s p a", 0.5 * canvas.width, 0.6 * canvas.height);
     context.beginPath();
     context.lineWidth="2";
     context.strokeStyle="#FF1493";
-    context.rect(0.5 * canvas.width - 160, 0.5 * canvas.height - 31,325,50);
+    context.rect(0.5 * canvas.width - 160, 0.5 * canvas.height - 34,325,50);
     context.stroke()
 
   }
-
+ if (gameover == false){
+  paddlecolor = "#34ddff"
   playerOne.render();
+  paddlecolor = "#f8f44f"
   playerTwo.render();
   context.fillStyle = "#FF69B4" // ball color value
+
   if (startgame == false) {
   ballOne.render();
+}
+}
+
+if (gameover == true){
+  context.font = "70px Tahoma"
+  context.strokeStyle = "#f44f11"
+  context.textAlign = "center"
+  context.fillStyle = "white";
+  context.strokeText("GAME OVER", 0.5 * canvas.width, 0.5 * canvas.height);
+  context.font = "30px Tahoma"
+  if (fault == 1){
+    context.fillText("YELLOW WINS !", 0.5 * canvas.width, 0.6 * canvas.height);
+  }
+  if (fault == 2){
+    context.fillText("BLUE WINS !", 0.5 * canvas.width, 0.6 * canvas.height);
+  }
 }
 }
