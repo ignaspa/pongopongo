@@ -13,11 +13,14 @@ const PADDLE_HEIGHT = 20;
 const PADDLE_SPEED = 5;
 const BALL_SPEED = 6;
 const BALL_RADIUS = 30;
+
+//some booleans to check key movement
 var topL = false;
 var topR = false;
 var botL = false;
 var botR = false;
 var keys = {"topR":false, "topL":false, "botR":false, "botL":false}
+var startgame = true;
 // setTimeout() invokes a callback function after a certain period.
 //
 // requestAnimationFrame allows the browser to perform optimizations on
@@ -36,7 +39,7 @@ canvas.height = 650
 var width = 800
 var height = 650
 // This will esentially tell the canvas that we want a 2d plane
-var context = canvas.getContext('2d')
+var context = canvas.getContext('2d');
 
 //==============================================================================
 // Everything below here you should try your best to understand.
@@ -77,6 +80,7 @@ class Ball {
 constructor (x, y)
 {
   this.x = x
+  //sets the initial random x direction of the ball
   this.xdir = Math.random()
 
   if( this.xdir >= 0.5){
@@ -86,7 +90,7 @@ constructor (x, y)
     this.xdir = 1
   }
 
-
+//sets the inital random y direction of the ball
   this.y = y
   this.ydir = Math.random()
 
@@ -97,11 +101,13 @@ constructor (x, y)
     this.ydir = 1
   }
 
-
+//sets the speed of the ball
   this.radius = BALL_RADIUS
   this.speed = BALL_SPEED
 }
 update(){
+
+
  if (this.x + this.radius >= canvas.width){
    this.xdir = -this.xdir
  }
@@ -118,14 +124,12 @@ update(){
 if(this.y + BALL_RADIUS >= height - PADDLE_HEIGHT){
   if(this.x >= playerTwo.x && this.x <= playerTwo.x + PADDLE_WIDTH){
     this.ydir = this.ydir * -1
-  
   }
 }
 
 if(this.y - BALL_RADIUS <= 0 + PADDLE_HEIGHT){
   if(this.x >= playerOne.x && this.x <= playerOne.x + PADDLE_WIDTH){
     this.ydir = this.ydir * -1
-
   }
 }
 
@@ -159,11 +163,15 @@ var step = () => {
   update()
   render()
   animate(step)
+
 }
 
 window.addEventListener("keydown", function(event){
  if (event.keyCode == 65){
    keys["topL"] = true
+ }
+ if (event.keyCode == 90){
+   startgame = false
  }
  if (event.keyCode == 68){
    keys["topR"] = true
@@ -202,7 +210,7 @@ var update = () => {
   playerTwo.update()
 
 
-  //comment added by ignas: we will make a boundary type thing for the paddles
+  // we will make a boundary type thing for the paddles
   //and check if the x and y of the ball are within them, thats a hit, rebound
   //if the ball hits the top or bottom thats a point gained by opposing
   //if hits side needs to rebound
@@ -210,6 +218,7 @@ var update = () => {
 
 
 // An example player
+
 var playerOne = new Paddle(PADDLE_HEIGHT,0, "topL", "topR")
 var playerTwo = new Paddle(100, height - PADDLE_HEIGHT, "botL", "botR")
 var ballOne = new Ball(0.5 * canvas.width, 0.5 * canvas.height)
@@ -218,8 +227,17 @@ var ballOne = new Ball(0.5 * canvas.width, 0.5 * canvas.height)
 var render = () => {
   context.fillStyle = "#000000" // This is a hex colour value (white)
   context.fillRect(0,0, width, height)
+  if (startgame == true){
+    context.font = "30px Times New Roman";
+    context.fillStyle = "white";
+    context.textAlign = "center"
+    context.fillText("pRESS Z TO BEGIn", 0.5 * canvas.width, 0.5 * canvas.height);
+  }
+
   playerOne.render();
   playerTwo.render();
   context.fillStyle = "#FF69B4" // ball color value
+  if (startgame == false) {
   ballOne.render();
+}
 }
