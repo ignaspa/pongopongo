@@ -24,6 +24,7 @@ var keys = {"topR":false, "topL":false, "botR":false, "botL":false}
 var startgame = true;
 var gameover = false;
 var fault = 0
+var touchp = false
 // setTimeout() invokes a callback function after a certain period.
 //
 // requestAnimationFrame allows the browser to perform optimizations on
@@ -109,7 +110,11 @@ constructor (x, y)
   this.speed = BALL_SPEED
 }
 update(){
-
+ if (touchp == true){
+   if (this.y - BALL_RADIUS > 0 + PADDLE_HEIGHT || this.y + BALL_RADIUS >= height - PADDLE_HEIGHT){
+     touchp = false
+   }
+ }
 
  if (this.x + this.radius >= canvas.width){
    this.xdir = -this.xdir
@@ -126,19 +131,20 @@ update(){
    gameover = true
  }
 
-if(this.y + BALL_RADIUS >= height - PADDLE_HEIGHT){
+if(this.y + BALL_RADIUS >= height - PADDLE_HEIGHT && touchp == false){
 
   if(this.x >= playerTwo.x && this.x <= playerTwo.x + PADDLE_WIDTH){
 
+    touchp = true
     this.ydir = this.ydir * -1
 
   }
 }
 
-if(this.y - BALL_RADIUS <= 0 + PADDLE_HEIGHT){
+if(this.y - BALL_RADIUS <= 0 + PADDLE_HEIGHT && touchp == false){
 
   if(this.x >= playerOne.x && this.x <= playerOne.x + PADDLE_WIDTH){
-
+    touchp = true
     this.ydir = this.ydir * -1
 
   }
@@ -278,9 +284,16 @@ if (gameover == true){
   context.font = "30px Tahoma"
   if (fault == 1){
     context.fillText("YELLOW WINS !", 0.5 * canvas.width, 0.6 * canvas.height);
+    context.fillText("press R to play again", 0.5 * canvas.width, 0.65 * canvas.height);
   }
   if (fault == 2){
     context.fillText("BLUE WINS !", 0.5 * canvas.width, 0.6 * canvas.height);
+    context.fillText("press R to play again", 0.5 * canvas.width, 0.65 * canvas.height);
   }
+  window.addEventListener("keydown", function(event){
+   if (event.keyCode == 82){
+     location.reload();
+   }
+});
 }
 }
