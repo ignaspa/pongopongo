@@ -99,6 +99,11 @@ constructor (x, y)
   this.radius = BALL_RADIUS
   this.speed = BALL_SPEED
 }
+
+
+
+
+
 update(){
  if (touchp == true){
    if (this.y - BALL_RADIUS > 0 + PADDLE_HEIGHT || this.y + BALL_RADIUS >= height - PADDLE_HEIGHT){
@@ -121,6 +126,12 @@ update(){
    gameover = true
  }
 
+
+
+
+
+
+
 if(this.y + BALL_RADIUS >= height - PADDLE_HEIGHT && touchp == false){
 
   if(this.x >= playerTwo.x && this.x <= playerTwo.x + PADDLE_WIDTH){
@@ -129,6 +140,7 @@ if(this.y + BALL_RADIUS >= height - PADDLE_HEIGHT && touchp == false){
     this.ydir = this.ydir * -1
 
   }
+
 }
 
 if(this.y - BALL_RADIUS <= 0 + PADDLE_HEIGHT && touchp == false){
@@ -139,6 +151,10 @@ if(this.y - BALL_RADIUS <= 0 + PADDLE_HEIGHT && touchp == false){
 
   }
 }
+
+
+
+
 
 }
 
