@@ -1,13 +1,4 @@
-// Before getting started you need to find the Console in your browser
-// The command console.log() is like print() but you'll see it in the
-// console along with errors etc.
 
-// Note that I'm not using semicolons. They are not required but may
-// help when getting familiar with JS.
-
-// Don't worry about understanding everything except where noted.
-
-// Some constants we will use later
 const PADDLE_WIDTH = 100;
 const PADDLE_HEIGHT = 20;
 const PADDLE_SPEED = 10;
@@ -15,16 +6,15 @@ const BALL_SPEED = 6;
 const BALL_RADIUS = 30;
 
 //some booleans to check key movement
-var topL = false;
-var topR = false;
-var botL = false;
-var botR = false;
+
 var paddlecolor = "#34ddff"
 var keys = {"topR":false, "topL":false, "botR":false, "botL":false}
 var startgame = true;
 var gameover = false;
 var fault = 0
 var touchp = false
+
+
 // setTimeout() invokes a callback function after a certain period.
 //
 // requestAnimationFrame allows the browser to perform optimizations on
@@ -34,24 +24,24 @@ var animate = window.requestAnimationFrame ||
   window.mozRequestAnimationFrame ||
   function(callback) { window.setTimeout(callback, 1000/60) };
 
-// This is the canvas on which we will paint our masterpiece
+
+
+
+
 var canvas = document.createElement('canvas')
-//var width = document.getElementById("root").clientWidth
-//var height = document.getElementById("root").clientHeight
-canvas.width = 800
-canvas.height = 650
-var width = 800
-var height = 650
+
+canvas.width = window.innerWidth
+canvas.height = window.innerHeight
+var width = canvas.width
+var height = canvas.height
+
 // This will esentially tell the canvas that we want a 2d plane
 var context = canvas.getContext('2d');
 
-//==============================================================================
-// Everything below here you should try your best to understand.
-//==============================================================================
 
-// This is a class definition in the latest JS (ES6?). You might
-// find examples that look quite different from ES5 etc.
+// This is a class definition in the latest JS (ES6?).
 class Paddle {
+
   constructor(x, y, leftK, rightK){
     this.x = x
     this.y = y
@@ -190,13 +180,26 @@ window.addEventListener("keydown", function(event){
  if (event.keyCode == 65){
    keys["topL"] = true
  }
- if (event.keyCode == 90){
-   startgame = false
- }
+
  if (event.keyCode == 68){
    keys["topR"] = true
  }
+ if (event.keyCode == 37){
+   keys["botL"] = true
+ }
+ if (event.keyCode == 39){
+   keys["botR"] = true
+ }
+ if (event.keyCode == 82 && gameover == true){
+     location.reload();
+   }
+ if (event.keyCode == 90){
+     startgame = false
+   }
 });
+
+
+
 window.addEventListener("keyup", function(event){
  if (event.keyCode == 65){
    keys["topL"] = false
@@ -204,17 +207,6 @@ window.addEventListener("keyup", function(event){
  if (event.keyCode == 68){
    keys["topR"] = false
  }
-});
-
-window.addEventListener("keydown", function(event){
- if (event.keyCode == 37){
-   keys["botL"] = true
- }
- if (event.keyCode == 39){
-   keys["botR"] = true
- }
-});
-window.addEventListener("keyup", function(event){
  if (event.keyCode == 37){
    keys["botL"] = false
  }
@@ -222,6 +214,14 @@ window.addEventListener("keyup", function(event){
    keys["botR"] = false
  }
 });
+
+window.addEventListener("resize", function(event){
+  canvas.width = window.innerWidth
+  canvas.height = window.innerHeight
+  var width = canvas.width
+  var height = canvas.height
+});
+
 // This is where we will tell the ball to keep moving and check
 // if it has collided with a paddle
 var update = () => {
@@ -244,9 +244,13 @@ var playerTwo = new Paddle(canvas.width/2- PADDLE_WIDTH/2, height - PADDLE_HEIGH
 var ballOne = new Ball(0.5 * canvas.width, 0.5 * canvas.height)
 // Everytime we call update we have to redraw everthing. We could optimize this
 // but its not gonna be a problem for us.
+
+
+
 var render = () => {
   context.fillStyle = "#000000" // This is a hex colour value (white)
   context.fillRect(0,0, width, height)
+
   if (startgame == true){
     context.font = "30px Tahoma";
     context.fillStyle = "white";
@@ -263,37 +267,37 @@ var render = () => {
     context.stroke()
 
   }
+
  if (gameover == false){
-  paddlecolor = "#34ddff"
-  playerOne.render();
-  paddlecolor = "#f8f44f"
-  playerTwo.render();
-  context.fillStyle = "#FF69B4" // ball color value
+   paddlecolor = "#34ddff"
+   playerOne.render();
+   paddlecolor = "#f8f44f"
+   playerTwo.render();
 
-  if (startgame == false) {
-  ballOne.render();
-}
-}
+   if (startgame == false) {
+     context.fillStyle = "#FF69B4" // ball color value
+     ballOne.render();
+    }
 
-if (gameover == true){
-  context.font = "70px Tahoma"
-  context.strokeStyle = "#f44f11"
-  context.textAlign = "center"
-  context.fillStyle = "white";
-  context.strokeText("GAME OVER", 0.5 * canvas.width, 0.5 * canvas.height);
-  context.font = "30px Tahoma"
+  }
+
+
+
+  if (gameover == true){
+    context.font = "70px Tahoma"
+    context.strokeStyle = "#f44f11"
+    context.textAlign = "center"
+    context.fillStyle = "white";
+    context.strokeText("GAME OVER", 0.5 * canvas.width, 0.5 * canvas.height);
+    context.font = "30px Tahoma"
   if (fault == 1){
-    context.fillText("YELLOW WINS !", 0.5 * canvas.width, 0.6 * canvas.height);
-    context.fillText("press R to play again", 0.5 * canvas.width, 0.65 * canvas.height);
+      context.fillText("YELLOW WINS !", 0.5 * canvas.width, 0.6 * canvas.height);
+      context.fillText("press R to play again", 0.5 * canvas.width, 0.65 * canvas.height);
   }
   if (fault == 2){
-    context.fillText("BLUE WINS !", 0.5 * canvas.width, 0.6 * canvas.height);
-    context.fillText("press R to play again", 0.5 * canvas.width, 0.65 * canvas.height);
+      context.fillText("BLUE WINS !", 0.5 * canvas.width, 0.6 * canvas.height);
+      context.fillText("press R to play again", 0.5 * canvas.width, 0.65 * canvas.height);
   }
-  window.addEventListener("keydown", function(event){
-   if (event.keyCode == 82){
-     location.reload();
-   }
-});
+
 }
 }
