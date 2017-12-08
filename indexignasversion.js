@@ -94,7 +94,7 @@ constructor (x, y)
     this.ydir = 1
   }
 
-//sets the speed of the ball
+//sets the initial speed of the ball
   this.radius = BALL_RADIUS
   this.speed = BALL_SPEED
 }
@@ -191,7 +191,7 @@ render(){
     this.x = this.x + (this.xdir * this.speed)
     this.y = this.y + (this.ydir * this.speed)
 
-    //draw ball
+
     context.beginPath()
     context.fillstyle = "#FF1493"
     context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI)
@@ -267,8 +267,7 @@ window.addEventListener("resize", function(event){
   var height = canvas.height
 });
 
-// This is where we will tell the ball to keep moving and check
-// if it has collided with a paddle
+
 var update = () => {
 
   if (ballHits == 3) {
@@ -289,13 +288,12 @@ var update = () => {
 }
 
 
-// An example player
+
 
 var playerOne = new Paddle(canvas.width/2 - PADDLE_WIDTH/2,0, "topL", "topR")
 var playerTwo = new Paddle(canvas.width/2- PADDLE_WIDTH/2, height - PADDLE_HEIGHT, "botL", "botR")
 var ballOne = new Ball(0.5 * canvas.width, 0.5 * canvas.height)
-// Everytime we call update we have to redraw everthing. We could optimize this
-// but its not gonna be a problem for us.
+
 
 
 
@@ -311,7 +309,11 @@ var render = () => {
     context.font = "22px Tahoma";
     context.fillStyle = "#66d966";
 
-    context.fillText("i g n a s / p. a.", 0.5 * canvas.width, 0.6 * canvas.height);
+    context.fillText("ignas panero armoska", 0.5 * canvas.width, 0.6 * canvas.height);
+    context.font = "18px Tahoma";
+    context.fillStyle = "#1a544a";
+    context.fillText("with kind support from:", 0.5 * canvas.width, 0.7 * canvas.height);
+    context.fillText("David Ansermino && Jonah Simpson", 0.5 * canvas.width, 0.75 * canvas.height);
     context.beginPath();
     context.lineWidth="2";
     context.strokeStyle="#FF1493";
