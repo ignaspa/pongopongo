@@ -107,7 +107,7 @@ update(){
 
 
  if (touchp == true){
-   if (this.y - BALL_RADIUS > 0 + PADDLE_HEIGHT || this.y + BALL_RADIUS >= height - PADDLE_HEIGHT){
+   if ((this.y - BALL_RADIUS > 0 + PADDLE_HEIGHT) && (this.y + BALL_RADIUS < height - PADDLE_HEIGHT)){
      touchp = false
    }
  }
@@ -145,13 +145,13 @@ if(this.y + BALL_RADIUS >= height - PADDLE_HEIGHT && touchp == false){
 
 }
 
-if (Math.sqrt(Math.pow(this.y - (playerOne.y +PADDLE_HEIGHT), 2) + Math.pow(playerOne.x - this.x, 2)) <=  BALL_RADIUS){
+if ((Math.sqrt(Math.pow(this.y - (playerOne.y +PADDLE_HEIGHT), 2) + Math.pow(playerOne.x - this.x, 2)) <=  BALL_RADIUS) && touchp == false){
     this.ydir = this.ydir * -1
     this.xdir = this.xdir * -1
     touchp = true
     ballHits = ballHits + 1
   }
-if (Math.sqrt(Math.pow(this.y - (playerOne.y +PADDLE_HEIGHT), 2) + Math.pow(this.x - (playerOne.x + PADDLE_WIDTH), 2)) <= BALL_RADIUS){
+if ((Math.sqrt(Math.pow(this.y - (playerOne.y +PADDLE_HEIGHT), 2) + Math.pow(this.x - (playerOne.x + PADDLE_WIDTH), 2)) <= BALL_RADIUS) && touchp == false){
       this.ydir = this.ydir * -1
       this.xdir = this.xdir * -1
       touchp = true
@@ -168,13 +168,13 @@ if(this.y - BALL_RADIUS <= 0 + PADDLE_HEIGHT && touchp == false){
   }
 }
 
-if (Math.sqrt(Math.pow(playerTwo.y - this.y, 2) + Math.pow(playerTwo.x - this.x, 2)) <=  BALL_RADIUS){
+if ((Math.sqrt(Math.pow(playerTwo.y - this.y, 2) + Math.pow(playerTwo.x - this.x, 2)) <=  BALL_RADIUS) && touchp == false){
     this.ydir = this.ydir * -1
     this.xdir = this.xdir * -1
     touchp = true
     ballHits = ballHits + 1
   }
-if (Math.sqrt(Math.pow(playerTwo.y - this.y, 2) + Math.pow(this.x - (playerTwo.x + PADDLE_WIDTH), 2)) <= BALL_RADIUS){
+if ((Math.sqrt(Math.pow(playerTwo.y - this.y, 2) + Math.pow(this.x - (playerTwo.x + PADDLE_WIDTH), 2)) <= BALL_RADIUS) && touchp == false){
       this.ydir = this.ydir * -1
       this.xdir = this.xdir * -1
       touchp = true
