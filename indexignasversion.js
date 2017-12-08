@@ -309,7 +309,7 @@ var render = () => {
     context.font = "22px Tahoma";
     context.fillStyle = "#66d966";
 
-    context.fillText("ignas panero armoska", 0.5 * canvas.width, 0.6 * canvas.height);
+    context.fillText("i g n a s   p a n e r o   a r m o s k a", 0.5 * canvas.width, 0.6 * canvas.height);
     context.font = "18px Tahoma";
     context.fillStyle = "#1a544a";
     context.fillText("with kind support from:", 0.5 * canvas.width, 0.7 * canvas.height);
