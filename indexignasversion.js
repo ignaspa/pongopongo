@@ -2,18 +2,17 @@
 const PADDLE_WIDTH = 100;
 const PADDLE_HEIGHT = 20;
 const PADDLE_SPEED = 10;
-const BALL_SPEED = 6;
 const BALL_RADIUS = 30;
 
-//some booleans to check key movement
 
+var BALL_SPEED = 3;
 var paddlecolor = "#34ddff"
 var keys = {"topR":false, "topL":false, "botR":false, "botL":false}
 var startgame = true;
 var gameover = false;
 var fault = 0
 var touchp = false
-
+var ballHits = 0
 
 // setTimeout() invokes a callback function after a certain period.
 //
@@ -105,6 +104,8 @@ constructor (x, y)
 
 
 update(){
+
+
  if (touchp == true){
    if (this.y - BALL_RADIUS > 0 + PADDLE_HEIGHT || this.y + BALL_RADIUS >= height - PADDLE_HEIGHT){
      touchp = false
@@ -126,6 +127,7 @@ update(){
    gameover = true
  }
 
+this.speed = BALL_SPEED
 
 
 
@@ -135,7 +137,7 @@ update(){
 if(this.y + BALL_RADIUS >= height - PADDLE_HEIGHT && touchp == false){
 
   if(this.x >= playerTwo.x && this.x <= playerTwo.x + PADDLE_WIDTH){
-
+    ballHits = ballHits + 1
     touchp = true
     this.ydir = this.ydir * -1
 
@@ -143,9 +145,27 @@ if(this.y + BALL_RADIUS >= height - PADDLE_HEIGHT && touchp == false){
 
 }
 
+if ( Math.sqrt(Math.pow((this.y - BALL_RADIUS) - (playerOne.x +
+  PADDLE_HEIGHT), 2) + Math.pow(playerOne.x - this.x, 2)) <=
+  BALL_RADIUS){
+    this.ydir = this.ydir * -1
+    this.xdir = this.xdir * -1
+    touchp = true
+    ballHits = ballHits + 1
+  }
+if ( Math.sqrt(Math.pow((this.y - BALL_RADIUS) - (playerOne.x +
+    PADDLE_HEIGHT), 2) + Math.pow(this.x - (playerOne.x + PADDLE_WIDTH), 2)) <=
+    BALL_RADIUS){
+      this.ydir = this.ydir * -1
+      this.xdir = this.xdir * -1
+      touchp = true
+      ballHits = ballHits + 1
+  }
+
 if(this.y - BALL_RADIUS <= 0 + PADDLE_HEIGHT && touchp == false){
 
   if(this.x >= playerOne.x && this.x <= playerOne.x + PADDLE_WIDTH){
+    ballHits = ballHits + 1
     touchp = true
     this.ydir = this.ydir * -1
 
@@ -185,7 +205,9 @@ window.onload = () => {
 var step = () => {
 
   update()
+
   render()
+
   if (gameover == false){
   animate(step)
 }
@@ -241,15 +263,22 @@ window.addEventListener("resize", function(event){
 // This is where we will tell the ball to keep moving and check
 // if it has collided with a paddle
 var update = () => {
+
+  if (ballHits == 3) {
+    BALL_SPEED = 4
+    console.log("hello frands")
+  }
+  if (ballHits == 7) {
+    BALL_SPEED = 6
+  }
+
+
   ballOne.update()
   playerOne.update()
   playerTwo.update()
 
 
-  // we will make a boundary type thing for the paddles
-  //and check if the x and y of the ball are within them, thats a hit, rebound
-  //if the ball hits the top or bottom thats a point gained by opposing
-  //if hits side needs to rebound
+
 }
 
 
@@ -268,18 +297,18 @@ var render = () => {
   context.fillRect(0,0, width, height)
 
   if (startgame == true){
-    context.font = "30px Tahoma";
+    context.font = "25px Courier New";
     context.fillStyle = "white";
     context.textAlign = "center"
-    context.fillText("press Z to begin", 0.5 * canvas.width, 0.5 * canvas.height);
+    context.fillText("Press [Z] To Begin!", 0.5 * canvas.width, 0.5 * canvas.height);
     context.font = "22px Tahoma";
     context.fillStyle = "#66d966";
 
-    context.fillText("i g n a s p a", 0.5 * canvas.width, 0.6 * canvas.height);
+    context.fillText("i g n a s / p. a.", 0.5 * canvas.width, 0.6 * canvas.height);
     context.beginPath();
     context.lineWidth="2";
     context.strokeStyle="#FF1493";
-    context.rect(0.5 * canvas.width - 160, 0.5 * canvas.height - 34,325,50);
+    context.rect(0.5 * canvas.width - 165, 0.5 * canvas.height- 33,325,50);
     context.stroke()
 
   }
