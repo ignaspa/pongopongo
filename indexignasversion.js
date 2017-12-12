@@ -145,19 +145,18 @@ if(this.y + BALL_RADIUS >= height - PADDLE_HEIGHT && touchp == false){
 
 }
 
-if ((Math.sqrt(Math.pow(this.y - (playerOne.y +PADDLE_HEIGHT), 2) + Math.pow(playerOne.x - this.x, 2)) <=  BALL_RADIUS) && touchp == false){
+if ((Math.sqrt(Math.pow(this.y - (playerOne.y +PADDLE_HEIGHT), 2) +
+Math.pow(playerOne.x - this.x, 2)) <=  BALL_RADIUS) && touchp == false){
     this.ydir = this.ydir * -1
-    if (this.x < playerOne.x){
-    this.xdir = this.xdir * -1
-    }
+    this.xdir = -1
     touchp = true
     ballHits = ballHits + 1
   }
-if ((Math.sqrt(Math.pow(this.y - (playerOne.y +PADDLE_HEIGHT), 2) + Math.pow(this.x - (playerOne.x + PADDLE_WIDTH), 2)) <= BALL_RADIUS) && touchp == false){
+if ((Math.sqrt(Math.pow(this.y - (playerOne.y +PADDLE_HEIGHT), 2) +
+Math.pow(this.x - (playerOne.x + PADDLE_WIDTH), 2)) <= BALL_RADIUS) &&
+touchp == false){
       this.ydir = this.ydir * -1
-      if (this.x > playerOne.x + PADDLE_WIDTH){
-      this.xdir = this.xdir * -1
-      }
+      this.xdir = 1
       touchp = true
       ballHits = ballHits + 1
   }
@@ -172,20 +171,19 @@ if(this.y - BALL_RADIUS <= 0 + PADDLE_HEIGHT && touchp == false){
   }
 }
 
-if ((Math.sqrt(Math.pow(playerTwo.y - this.y, 2) + Math.pow(playerTwo.x - this.x, 2)) <=  BALL_RADIUS) && touchp == false){
+if ((Math.sqrt(Math.pow(playerTwo.y - this.y, 2) +
+Math.pow(playerTwo.x - this.x, 2)) <=  BALL_RADIUS) && touchp == false){
     this.ydir = this.ydir * -1
 
-    if (this.x < playerTwo.x){
-    this.xdir = this.xdir * -1
-    }
+    this.xdir = -1
     touchp = true
     ballHits = ballHits + 1
   }
-if ((Math.sqrt(Math.pow(playerTwo.y - this.y, 2) + Math.pow(this.x - (playerTwo.x + PADDLE_WIDTH), 2)) <= BALL_RADIUS) && touchp == false){
+if ((Math.sqrt(Math.pow(playerTwo.y - this.y, 2) +
+Math.pow(this.x - (playerTwo.x + PADDLE_WIDTH), 2)) <= BALL_RADIUS) &&
+touchp == false){
       this.ydir = this.ydir * -1
-      if (this.x > playerTwo.x + PADDLE_WIDTH){
-      this.xdir = this.xdir * -1
-      }
+      this.xdir = 1
       touchp = true
       ballHits = ballHits + 1
   }
@@ -280,11 +278,23 @@ window.addEventListener("resize", function(event){
 var update = () => {
 
   if (ballHits == 3) {
-    BALL_SPEED = 4
+    BALL_SPEED = 5
     console.log("hello frands")
   }
   if (ballHits == 7) {
     BALL_SPEED = 6
+  }
+  if (ballHits == 9) {
+    BALL_SPEED = 7
+  }
+  if (ballHits == 11) {
+    BALL_SPEED = 8
+  }
+  if (ballHits == 13) {
+    BALL_SPEED = 9
+  }
+  if (ballHits == 15) {
+    BALL_SPEED = 10.5
   }
 
 
