@@ -327,10 +327,10 @@ var render = () => {
     context.fillText("Press [Z] To Begin!", 0.5 * canvas.width, 0.5 * canvas.height);
     context.font = "22px Tahoma";
     context.fillStyle = "#FF1493";
-    context.fillText("A", 0.1 * canvas.width, 0.2 * canvas.height);
-    context.fillText("D", 0.2 * canvas.width, 0.2 * canvas.height);
-    context.fillText("Left", 0.1 * canvas.width, 0.8 * canvas.height);
-    context.fillText("Right", 0.2 * canvas.width, 0.8 * canvas.height);
+    context.fillText(" Use: A     D", 0.4 * canvas.width, 0.1 * canvas.height);
+
+    context.fillText("Use: Left      Right", 0.4 * canvas.width, 0.9 * canvas.height);
+
     context.fillStyle = "#66d966";
 
     context.fillText("i g n a s   p a n e r o   a r m o s k a", 0.5 * canvas.width, 0.6 * canvas.height);
