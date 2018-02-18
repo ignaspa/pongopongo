@@ -327,9 +327,9 @@ var render = () => {
     context.fillText("Press [Z] To Begin!", 0.5 * canvas.width, 0.5 * canvas.height);
     context.font = "22px Tahoma";
     context.fillStyle = "#FF1493";
-    context.fillText(" Use: A     D", 0.4 * canvas.width, 0.1 * canvas.height);
+    context.fillText("TO MOVE PADDLE: right - A & left - D", 0.4 * canvas.width, 0.1 * canvas.height);
 
-    context.fillText("Use: Left      Right", 0.4 * canvas.width, 0.9 * canvas.height);
+    context.fillText("TO MOVE PADDLE: right - RIGHT & left - LEFT", 0.4 * canvas.width, 0.9 * canvas.height);
 
     context.fillStyle = "#66d966";
 
