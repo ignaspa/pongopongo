@@ -3,7 +3,7 @@ const PADDLE_WIDTH = 100;
 const PADDLE_HEIGHT = 20;
 const PADDLE_SPEED = 10;
 const BALL_RADIUS = 30;
-
+//constants for throughout the game
 
 var BALL_SPEED = 3;
 var paddlecolor = "#34ddff"
@@ -11,11 +11,18 @@ var keys = {"topR":false, "topL":false, "botR":false, "botL":false}
 var startgame = true;
 var gameover = false;
 var fault = 0
+//var fault is turned into 1 or 2 given whoever wins, and thus helps
+//display who won
 var touchp = false
-var ballHits = 0
+//this is to see if the game has started
 
-// setTimeout() invokes a callback function after a certain period.
-//
+var ballHits = 0
+//ballhits is kind of like a counter for the speed of the ball, each time
+//it hits a certain point the ball speed increases
+
+// setTimeout() invokes a callback function, one that calls repeatedly
+// after a certain period.
+
 // requestAnimationFrame allows the browser to perform optimizations on
 // on the setTimeout() and is considered 'good practice'
 var animate = window.requestAnimationFrame ||
@@ -26,9 +33,11 @@ var animate = window.requestAnimationFrame ||
 
 
 
-
+//creates the canvas where all the elements of the game will be shown
 var canvas = document.createElement('canvas')
 
+//dimensions of the canvas, and I also created two variables that will
+//be easier to play with
 canvas.width = window.innerWidth
 canvas.height = window.innerHeight
 var width = canvas.width
@@ -38,10 +47,11 @@ var height = canvas.height
 var context = canvas.getContext('2d');
 
 
-// This is a class definition in the latest JS (ES6?).
+// This is a class definition in the latest JS (ES6?)
 class Paddle {
 
   constructor(x, y, leftK, rightK){
+    //the paddle has coordinates and directions
     this.x = x
     this.y = y
     this.height = PADDLE_HEIGHT
@@ -50,7 +60,7 @@ class Paddle {
     this.leftK = leftK
     this.rightK = rightK
   }
-  // This the method we will call each time we render() in out step() loop
+  // renders the ball every for every repeated call from step
   render() {
     context.fillStyle = paddlecolor
     context.fillRect(this.x, this.y, this.width, this.height)
@@ -58,6 +68,8 @@ class Paddle {
 
 
  update(){
+   //this updates the position of the ball while checking that it is
+   //still in fact on screen.
    if (keys[this.leftK] && this.x > 0){
      this.x = this.x - this.speed
    }
