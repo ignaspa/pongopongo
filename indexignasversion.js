@@ -14,7 +14,7 @@ var fault = 0
 //var fault is turned into 1 or 2 given whoever wins, and thus helps
 //display who won
 var touchp = false
-//this is to see if the game has started
+
 
 var ballHits = 0
 //ballhits is kind of like a counter for the speed of the ball, each time
@@ -116,6 +116,7 @@ constructor (x, y)
 
 
 update(){
+
 
 
  if (touchp == true){
@@ -226,10 +227,10 @@ window.onload = () => {
   animate(step)
 }
 
-// This is a callback function. animate() will call this once it has done its
-// thing.
+// This is THE callback function. animate() will call this once it has done
+// updated the frame
 var step = () => {
-
+  //checks if oveupdates the game, element coordinates and ball speed
   update()
 
   render()
